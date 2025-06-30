@@ -28,18 +28,18 @@
       position: relative;
     }
 
-    /* OSTOSKORI */
+    /* Ostoskori laatikko yläkulmassa */
     #cart-box {
       position: fixed;
       top: 10px;
       right: 10px;
-      background-color: #add8ff;
-      color: white;
+      background-color: #4db5da; /* uusi väri */
+      color: #fff; /* valkoinen teksti */
       font-family: 'Eurostile', Arial, sans-serif;
       font-weight: bold;
-      font-size: 15px;
-      width: 35px;
-      height: 35px;
+      font-size: 14px;
+      width: 45px; /* 30px -> 45px */
+      height: 30px;
       border-radius: 5px;
       display: flex;
       justify-content: center;
@@ -50,9 +50,8 @@
       box-shadow: 0 0 5px rgba(0,0,0,0.3);
       transition: background-color 0.3s;
     }
-
     #cart-box:hover {
-      background-color: #8bb8ff;
+      background-color: #3a91b1;
     }
 
     .bottom-line {
@@ -110,7 +109,7 @@
       gap: 6px;
       cursor: pointer;
       color: white;
-      font-size: 13px;
+      font-size: 13px; /* pienennetty */
       user-select: none;
       font-weight: normal;
       position: relative;
@@ -123,7 +122,7 @@
     }
 
     .language-select img {
-      height: 18px;
+      height: 18px; /* pienennetty lippu */
       width: auto;
       border-radius: 2px;
       display: block;
@@ -144,11 +143,11 @@
     }
 
     .language-box {
-      display: none;
+      display: none; /* Aluksi piilossa */
       position: absolute;
       bottom: 30px;
       left: 0;
-      background-color: #444a56;
+      background-color: #444a56; /* harmaa tausta */
       padding: 6px 12px;
       border-radius: 4px;
       font-size: 14px;
@@ -214,7 +213,7 @@
       user-select: none;
       cursor: pointer;
       gap: 8px;
-      margin-left: 2cm;
+      margin-left: 2cm; /* siirretty 2cm oikealle */
     }
 
     .somet-text {
@@ -234,17 +233,20 @@
       cursor: pointer;
       outline: none;
       user-select: none;
+      transition: filter 0.3s;
     }
 
     .tiktok-btn img {
       width: 32px;
       height: auto;
       display: block;
-      filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100);
+      filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100); /* valkoinen */
+      transition: filter 0.3s;
     }
 
     .tiktok-btn:hover img {
-      filter: invert(75%) sepia(80%) saturate(3000%) hue-rotate(210deg) brightness(1.2);
+      filter: none; /* Poistetaan filteri, jotta voidaan käyttää drop-shadow sinisenä */
+      filter: drop-shadow(0 0 4px #4db5da);
     }
 
     .copyright-group {
@@ -353,6 +355,7 @@
 </head>
 <body>
 
+  <!-- Ostoskori laatikko -->
   <div id="cart-box" aria-label="Ostoskorin sisältö" role="button" tabindex="0">0</div>
 
   <div class="bottom-line"></div>
@@ -420,10 +423,10 @@
     }
   </script>
 
-  <!-- GIT KOMENNOT -->
+  <!-- Lisää kolme git komentoa terminaaliin -->
   <!--
   git add .
-  git commit -m "Säädetty ostoskori isommaksi ja TikTok hover-väri kirkkaammaksi"
+  git commit -m "Muokattu ostoskoria ja TikTok hover -väriä"
   git push
   -->
 
