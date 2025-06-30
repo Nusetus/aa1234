@@ -1,11 +1,82 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-  <meta charset="UTF-8">
-  <title>Oma verkkosivu</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Verkkokauppa</title>
+  <link rel="icon" href="favicon.ico" />
+  <!-- Fontti Eurostile -->
+  <style>
+    /* ... alkuperäinen CSS pysyy muuttumattomana ... */
+  </style>
 </head>
 <body>
-  <h1>Hei maailma!</h1>
-  <p>Tämä on minun ensimmäinen verkkosivuni.</p>
+  <!-- Ostoskori -->
+  <div id="cart-box" aria-label="Ostoskorin sisältö" role="button" tabindex="0">0</div>
+
+  <div class="bottom-line"></div>
+
+  <div class="footer-container">
+    <div class="payment-group">
+      <div class="payment-title">Maksutavat</div>
+      <div class="payment-logos">
+        <img src="applepay.svg" alt="Apple Pay" />
+        <img src="mc.svg" alt="Mastercard" />
+        <img src="mobilepay.svg" alt="MobilePay" />
+        <img src="visa.svg" alt="Visa" />
+      </div>
+      <div class="language-select" tabindex="0" role="button" onclick="toggleLangBox()" aria-label="Valitse kieli">
+        <div class="language-box" id="langBox" style="display:none;">
+          <img src="Suomenlippu.svg" alt="Suomen lippu" />
+          <span>Suomi</span>
+        </div>
+        <img src="Suomenlippu.svg" alt="Suomen lippu" />
+        <span>FI</span>
+        <i class="dropdown-arrow"></i>
+      </div>
+    </div>
+
+    <div class="middle-buttons-container">
+      <div class="middle-buttons">
+        <button class="middle-button" onclick="window.location.href='#'">Toimitus- ja maksuehdot</button>
+        <button class="middle-button" onclick="window.location.href='#'">Tietosuojaseloste</button>
+      </div>
+
+      <div class="somet-wrapper">
+        <div class="somet-text">Somet</div>
+        <button class="tiktok-btn" aria-label="TikTok" onclick="window.open('https://www.tiktok.com', '_blank')">
+          <img src="Tiktok.png" alt="TikTok" />
+        </button>
+      </div>
+    </div>
+
+    <div class="copyright-group">
+      <div class="footer-buttons">
+        <button class="footer-button" onclick="window.location.href='mailto:CONTACT@GMAIL.COM'">CONTACT@GMAIL.COM</button>
+      </div>
+      <div>© 2025 Verkkokauppa</div>
+    </div>
+  </div>
+
+  <script>
+    function toggleLangBox() {
+      const box = document.getElementById("langBox");
+      if (box.style.display === "flex") {
+        box.style.display = "none";
+      } else {
+        box.style.display = "flex";
+        setTimeout(() => {
+          document.addEventListener('click', outsideClick, { once: true });
+        }, 10);
+      }
+    }
+
+    function outsideClick(e) {
+      const box = document.getElementById("langBox");
+      if (!e.target.closest(".language-select")) {
+        box.style.display = "none";
+      }
+    }
+  </script>
 </body>
 </html>
