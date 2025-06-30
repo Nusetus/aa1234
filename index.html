@@ -2,16 +2,357 @@
 <html lang="fi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Verkkokauppa</title>
-  <link rel="icon" href="favicon.ico" />
-  <!-- Fontti Eurostile -->
   <style>
-    /* ... alkuperäinen CSS pysyy muuttumattomana ... */
+    @font-face {
+      font-family: 'Eurostile';
+      src: local('Eurostile'), local('Eurostile-Regular'),
+           url('https://fonts.cdnfonts.com/s/17215/Eurostile.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      background-color: #1e2228;
+      font-family: 'Eurostile', Arial, sans-serif;
+      font-size: 15px;
+      margin: 0;
+      padding: 0;
+      min-height: 110vh;
+      overflow-y: scroll;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      color: rgba(255, 255, 255, 0.3);
+      position: relative;
+    }
+
+    /* Ostoskori laatikko yläkulmassa */
+    #cart-box {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: #add8ff; /* vaaleansininen */
+      color: #000;
+      font-family: 'Eurostile', Arial, sans-serif;
+      font-weight: bold;
+      font-size: 14px;
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      z-index: 1000;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+      transition: background-color 0.3s;
+    }
+    #cart-box:hover {
+      background-color: #8bb8ff;
+    }
+
+    .bottom-line {
+      margin: 0 1cm 1.5cm 1cm;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.15);
+      z-index: 900;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin: 0 1cm 2cm 1cm;
+      user-select: none;
+      flex-wrap: nowrap;
+      color: rgba(255,255,255,0.3);
+      gap: 2rem;
+      position: relative;
+    }
+
+    .payment-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      user-select: none;
+      text-align: left;
+      min-width: 200px;
+      position: relative;
+    }
+
+    .payment-title {
+      font-size: 14px;
+      font-weight: normal;
+      white-space: nowrap;
+    }
+
+    .payment-logos {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+
+    .payment-logos img {
+      height: 28px;
+      width: auto;
+      display: block;
+    }
+
+    .language-select {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      color: white;
+      font-size: 13px; /* pienennetty */
+      user-select: none;
+      font-weight: normal;
+      position: relative;
+      width: max-content;
+      transition: color 0.2s;
+    }
+
+    .language-select:hover {
+      color: #a3c1ff;
+    }
+
+    .language-select img {
+      height: 18px; /* pienennetty lippu */
+      width: auto;
+      border-radius: 2px;
+      display: block;
+    }
+
+    .language-select span {
+      user-select: none;
+    }
+
+    .language-select .dropdown-arrow {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: white;
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+      margin-left: 4px;
+      margin-bottom: -1px;
+    }
+
+    .language-box {
+      display: none; /* Aluksi piilossa */
+      position: absolute;
+      bottom: 30px;
+      left: 0;
+      background-color: #444a56; /* harmaa tausta */
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      white-space: nowrap;
+      color: white;
+      z-index: 999;
+      min-width: max-content;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-sizing: border-box;
+      max-width: 200px;
+      user-select: none;
+    }
+
+    .language-box img {
+      height: 18px;
+      width: auto;
+      display: block;
+      border-radius: 2px;
+    }
+
+    .middle-buttons-container {
+      display: flex;
+      align-items: flex-end;
+      gap: 2rem;
+      min-width: 360px;
+      user-select: none;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .middle-buttons {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.3rem;
+      min-width: 180px;
+      user-select: none;
+    }
+
+    button.middle-button {
+      font-family: 'Eurostile', Arial, sans-serif;
+      background: none;
+      border: none;
+      padding: 4px 0;
+      cursor: pointer;
+      color: inherit;
+      text-align: center;
+      transition: color 0.2s;
+      font-size: 14px;
+      user-select: none;
+    }
+
+    button.middle-button:hover {
+      color: #a3c1ff;
+    }
+
+    .somet-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 80px;
+      user-select: none;
+      cursor: pointer;
+      gap: 8px;
+      margin-left: 2cm; /* siirretty 2cm oikealle */
+    }
+
+    .somet-text {
+      font-family: 'Eurostile', Arial, sans-serif;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.15);
+      margin-bottom: 4px;
+      white-space: nowrap;
+      text-align: center;
+      user-select: none;
+    }
+
+    .tiktok-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      outline: none;
+      user-select: none;
+    }
+
+    .tiktok-btn img {
+      width: 32px;
+      height: auto;
+      display: block;
+      filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100); /* valkoinen */
+    }
+
+    .tiktok-btn:hover img {
+      filter: invert(45%) sepia(84%) saturate(4046%) hue-rotate(210deg) brightness(1); /* vaaleansininen hover */
+    }
+
+    .copyright-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      user-select: none;
+      white-space: nowrap;
+      color: rgba(255,255,255,0.3);
+      font-size: 15px;
+      min-width: 200px;
+    }
+
+    .footer-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: max-content;
+    }
+
+    button.footer-button {
+      font-family: 'Eurostile', Arial, sans-serif;
+      font-weight: normal;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.7);
+      background: none;
+      border: none;
+      padding: 4px 0;
+      cursor: pointer;
+      user-select: text;
+      transition: color 0.2s;
+      white-space: nowrap;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    button.footer-button:hover {
+      color: #a3c1ff;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+    }
+
+    html {
+      scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+      scrollbar-width: thin;
+    }
+
+    @media (max-width: 600px) {
+      .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 0.5cm 0.5cm 3cm 0.5cm;
+        gap: 0.5rem;
+      }
+
+      .payment-title,
+      button.footer-button,
+      .copyright,
+      button.middle-button {
+        font-size: 13px;
+      }
+
+      .payment-logos {
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .payment-logos img {
+        height: 24px;
+      }
+
+      .middle-buttons-container {
+        flex-direction: column;
+        min-width: auto;
+        gap: 0.5rem;
+      }
+
+      .middle-buttons {
+        min-width: auto;
+        text-align: left;
+        flex-direction: row;
+        gap: 1rem;
+      }
+
+      .somet-wrapper {
+        flex-direction: column;
+        gap: 0.5rem;
+        min-width: auto;
+        margin-left: 0;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Ostoskori -->
+
+  <!-- Ostoskori laatikko -->
   <div id="cart-box" aria-label="Ostoskorin sisältö" role="button" tabindex="0">0</div>
 
   <div class="bottom-line"></div>
@@ -44,7 +385,7 @@
 
       <div class="somet-wrapper">
         <div class="somet-text">Somet</div>
-        <button class="tiktok-btn" aria-label="TikTok" onclick="window.open('https://www.tiktok.com', '_blank')">
+        <button class="tiktok-btn" aria-label="TikTok some-link" onclick="window.open('https://www.tiktok.com', '_blank')">
           <img src="Tiktok.png" alt="TikTok" />
         </button>
       </div>
@@ -61,7 +402,7 @@
   <script>
     function toggleLangBox() {
       const box = document.getElementById("langBox");
-      if (box.style.display === "flex") {
+      if(box.style.display === "flex") {
         box.style.display = "none";
       } else {
         box.style.display = "flex";
@@ -78,5 +419,13 @@
       }
     }
   </script>
+
+  <!-- Lisää kolme git komentoa terminaaliin -->
+  <!--
+  git add .
+  git commit -m "Lisätty ostoskori laatikko yläkulmaan"
+  git push
+  -->
+
 </body>
 </html>
