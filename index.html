@@ -46,12 +46,129 @@
       align-items: center;
       cursor: pointer;
       user-select: none;
-      z-index: 1000;
+      z-index: 1100;
       box-shadow: 0 0 5px rgba(0,0,0,0.3);
       transition: background-color 0.3s;
     }
     #cart-box:hover {
       background-color: #3a91b1;
+    }
+
+    /* Ostoskori sisältöboxi */
+    #cart-content-box {
+      position: fixed;
+      top: 45px; /* vähän alle ostoskorin alareuna */
+      right: 10px;
+      width: 8cm;
+      height: 5cm;
+      background-color: #444a56; /* sama kuin kielivalikon dropdown tausta */
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      display: none;
+      flex-direction: column;
+      padding: 0.6rem 1rem 1rem 1rem;
+      color: rgba(255,255,255,0.6);
+      z-index: 1099;
+      user-select: none;
+      font-family: 'Eurostile', Arial, sans-serif;
+    }
+
+    /* Boxin yläosa tekstit ja sulje-ruksi */
+    #cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+
+    #cart-header h2 {
+      font-size: 0.8rem; /* pieni fontti */
+      font-weight: normal;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0;
+      user-select: none;
+    }
+
+    #cart-close-btn {
+      font-size: 1.3rem;
+      font-weight: normal;
+      color: #fff;
+      cursor: pointer;
+      user-select: none;
+      padding: 0 5px;
+      line-height: 1;
+      transition: color 0.2s ease;
+    }
+    #cart-close-btn:hover {
+      color: #4db5da;
+    }
+
+    /* Keskellä tyhjä teksti */
+    #cart-empty-text {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: rgba(255,255,255,0.1);
+      font-size: 1.1rem;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* Loppusumma ja nappi alaosassa */
+    #cart-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-top: 0.8rem;
+    }
+
+    #cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: rgba(255,255,255,0.3);
+      font-size: 1rem;
+      user-select: none;
+    }
+
+    #cart-total-row .total-label {
+      font-weight: normal;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.3);
+      user-select: none;
+    }
+
+    #cart-total-row .total-amount {
+      font-weight: normal;
+      font-size: 1.1rem;
+      color: #fff;
+      user-select: none;
+      min-width: 5cm;
+      text-align: right;
+    }
+
+    /* Iso nappi */
+    #show-cart-btn {
+      width: 100%;
+      background-color: #1e2228; /* sivun tausta */
+      border: none;
+      border-radius: 5px;
+      padding: 0.6rem 0;
+      color: rgba(255,255,255,0.3);
+      font-family: 'Eurostile', Arial, sans-serif;
+      font-size: 0.8rem; /* sama kuin "OSTOSKORI" */
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    #show-cart-btn:hover {
+      background-color: #2a2f38;
+      color: rgba(255,255,255,0.6);
     }
 
     .bottom-line {
@@ -245,7 +362,7 @@
     }
 
     .tiktok-btn:hover img {
-      filter: none; /* Poistetaan filteri, jotta voidaan käyttää drop-shadow sinisenä */
+      filter: none;
       filter: drop-shadow(0 0 4px #4db5da);
     }
 
@@ -358,6 +475,24 @@
   <!-- Ostoskori laatikko -->
   <div id="cart-box" aria-label="Ostoskorin sisältö" role="button" tabindex="0">0</div>
 
+  <!-- Ostoskori sisältöboxi -->
+  <div id="cart-content-box" role="region" aria-label="Ostoskorin sisältö">
+    <div id="cart-header">
+      <h2>OSTOSKORI</h2>
+      <div id="cart-close-btn" role="button" aria-label="Sulje ostoskori" tabindex="0">&times;</div>
+    </div>
+
+    <div id="cart-empty-text">Ostoskorisi on tyhjä.</div>
+
+    <div id="cart-footer">
+      <div id="cart-total-row">
+        <div class="total-label">Loppusumma</div>
+        <div class="total-amount">0,00 €</div>
+      </div>
+      <button id="show-cart-btn" aria-label="Näytä ostoskori">NÄYTÄ OSTOSKORI</button>
+    </div>
+  </div>
+
   <div class="bottom-line"></div>
 
   <div class="footer-container">
@@ -373,62 +508,83 @@
         <div class="language-box" id="langBox" style="display:none;">
           <img src="Suomenlippu.svg" alt="Suomenlippu" />
           <span>Suomi</span>
+          <img src="Englanninlippu.svg" alt="Englannin lippu" />
+          <span>English</span>
         </div>
-        <img src="Suomenlippu.svg" alt="Suomenlippu" />
+        <img src="Suomenlippu.svg" alt="Suomen lippu" />
         <span>FI</span>
-        <i class="dropdown-arrow"></i>
+        <div class="dropdown-arrow"></div>
       </div>
     </div>
 
     <div class="middle-buttons-container">
       <div class="middle-buttons">
-        <button class="middle-button" onclick="window.location.href='#'">Toimitus- ja maksuehdot</button>
-        <button class="middle-button" onclick="window.location.href='#'">Tietosuojaseloste</button>
+        <button class="middle-button">Tietoa yrityksestä</button>
+        <button class="middle-button">Tietosuojaseloste</button>
       </div>
-
-      <div class="somet-wrapper">
-        <div class="somet-text">Somet</div>
-        <button class="tiktok-btn" aria-label="Tiktok some-link" onclick="window.open('https://www.tiktok.com', '_blank')">
-          <img src="Tiktok.png" alt="Tiktok" />
-        </button>
+      <div class="middle-buttons">
+        <button class="middle-button">Sivukartta</button>
+        <button class="middle-button">Rekisteriseloste</button>
       </div>
     </div>
 
+    <div class="somet-wrapper" aria-label="Sosiaalinen media">
+      <div class="somet-text">Seuraa meitä</div>
+      <button class="tiktok-btn" aria-label="TikTok">
+        <img src="tiktok.svg" alt="TikTok-logo" />
+      </button>
+    </div>
+
     <div class="copyright-group">
+      <div class="copyright">© 2025 Yritys Oy</div>
       <div class="footer-buttons">
-        <button class="footer-button" onclick="window.location.href='mailto:CONTACT@GMAIL.COM'">CONTACT@GMAIL.COM</button>
+        <button class="footer-button" aria-label="Tietosuojaseloste">Tietosuojaseloste</button>
+        <button class="footer-button" aria-label="Käyttöehdot">Käyttöehdot</button>
       </div>
-      <div>© 2025 Verkkokauppa</div>
     </div>
   </div>
 
   <script>
+    // Toggle kielivalikko
     function toggleLangBox() {
-      const box = document.getElementById("langBox");
-      if(box.style.display === "flex") {
-        box.style.display = "none";
+      const langBox = document.getElementById('langBox');
+      langBox.style.display = (langBox.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    // Ostoskori napin ja boxin logiikka
+    const cartBox = document.getElementById('cart-box');
+    const cartContentBox = document.getElementById('cart-content-box');
+    const cartCloseBtn = document.getElementById('cart-close-btn');
+
+    cartBox.addEventListener('click', () => {
+      if (cartContentBox.style.display === 'flex') {
+        cartContentBox.style.display = 'none';
       } else {
-        box.style.display = "flex";
-        setTimeout(() => {
-          document.addEventListener('click', outsideClick, { once: true });
-        }, 10);
+        cartContentBox.style.display = 'flex';
+        cartContentBox.style.flexDirection = 'column';
       }
-    }
+    });
 
-    function outsideClick(e) {
-      const box = document.getElementById("langBox");
-      if (!e.target.closest(".language-select")) {
-        box.style.display = "none";
+    cartCloseBtn.addEventListener('click', () => {
+      cartContentBox.style.display = 'none';
+    });
+
+    // Mahdollinen myös sulku näppäimellä
+    cartCloseBtn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        cartContentBox.style.display = 'none';
       }
-    }
+    });
+
+    // Ostoskori napin näppäimistökäyttö
+    cartBox.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        cartBox.click();
+      }
+    });
+
   </script>
-
-  <!-- Lisää kolme git komentoa terminaaliin -->
-  <!--
-  git add .
-  git commit -m "Muokattu ostoskoria ja TikTok hover -väriä"
-  git push
-  -->
-
 </body>
 </html>
