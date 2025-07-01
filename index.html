@@ -2,7 +2,7 @@
 <html lang="fi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Verkkokauppa</title>
   <style>
     @font-face {
@@ -21,11 +21,10 @@
       padding: 0;
       min-height: 110vh;
       overflow-y: scroll;
+      color: rgba(255, 255, 255, 0.3);
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      color: rgba(255, 255, 255, 0.3);
-      position: relative;
+      justify-content: flex-start;
     }
 
     /* Ostoskori laatikko */
@@ -37,7 +36,7 @@
       color: #fff;
       font-family: 'Eurostile', Arial, sans-serif;
       font-weight: bold;
-      font-size: 22px; /* kasvatettu fonttia */
+      font-size: 22px;
       width: 67.5px;  /* 45px * 1.5 */
       height: 45px;   /* 30px * 1.5 */
       border-radius: 5px;
@@ -61,16 +60,27 @@
       z-index: 900;
     }
 
+    /* Footer koko rivi, keskitetty ja somet oikeaan */
     .footer-container {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: flex-end;
-      margin: 0 1cm 2cm 1cm;
+      margin: 0 1cm 5rem 1cm;
       user-select: none;
-      flex-wrap: nowrap;
-      color: rgba(255,255,255,0.3);
       gap: 2rem;
       position: relative;
+      flex-wrap: nowrap;
+    }
+
+    /* Maksutavat + kielivalikko vasemmalle ylös */
+    .left-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      justify-content: flex-start;
+      align-items: flex-start;
+      margin-right: auto;
+      margin-bottom: 1rem;
     }
 
     .payment-group {
@@ -80,7 +90,6 @@
       user-select: none;
       text-align: left;
       min-width: 200px;
-      position: relative;
     }
 
     .payment-title {
@@ -103,7 +112,7 @@
     }
 
     .language-select {
-      margin-top: 18px;
+      margin-top: 8px; /* vähän ylemmäs */
       display: flex;
       align-items: center;
       gap: 6px;
@@ -170,54 +179,54 @@
       border-radius: 2px;
     }
 
-    .middle-buttons-container {
+    /* Footer linkit keskelle alareunaa */
+    .footer-links {
       display: flex;
-      align-items: flex-end;
-      gap: 2rem;
-      min-width: 360px;
-      user-select: none;
-      color: rgba(255,255,255,0.3);
-    }
-
-    .middle-buttons {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 0.3rem;
-      min-width: 180px;
-      user-select: none;
-      /* keskitetään */
+      gap: 3rem;
       align-items: center;
+      justify-content: center;
+      user-select: none;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 15px;
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-family: 'Eurostile', Arial, sans-serif;
+      z-index: 1000;
     }
 
-    button.middle-button {
-      font-family: 'Eurostile', Arial, sans-serif;
+    .footer-links button {
       background: none;
       border: none;
-      padding: 4px 0;
+      padding: 4px 8px;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: normal;
+      font-size: 15px;
+      text-transform: none;
       cursor: pointer;
-      color: inherit;
-      text-align: center;
       transition: color 0.2s;
-      font-size: 14px;
-      user-select: none;
+      user-select: text;
+      font-family: 'Eurostile', Arial, sans-serif;
     }
-
-    button.middle-button:hover {
+    .footer-links button:hover {
       color: #a3c1ff;
     }
 
+    /* Some nappi oikeaan alalaitaan */
     .somet-wrapper {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      user-select: none;
+      cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 80px;
-      user-select: none;
-      cursor: pointer;
       gap: 8px;
-      margin-left: 2cm;
-      /* siirretään oikeaan laitaan */
-      margin-left: auto;
+      color: rgba(255,255,255,0.3);
+      z-index: 1000;
     }
 
     .somet-text {
@@ -237,6 +246,7 @@
       cursor: pointer;
       outline: none;
       user-select: none;
+      transition: none !important; /* EI viivettä */
     }
 
     .tiktok-btn img {
@@ -244,66 +254,16 @@
       height: auto;
       display: block;
       filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100);
-      transition: filter 0.3s;
+      transition: none !important; /* EI viivettä */
     }
 
     .tiktok-btn:hover img {
-      filter: invert(29%) sepia(60%) saturate(1572%) hue-rotate(184deg) brightness(1);
+      filter: invert(43%) sepia(53%) saturate(2200%) hue-rotate(182deg) brightness(1);
+      transition: none !important; /* EI viivettä */
     }
 
-    .copyright-group {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-      user-select: none;
-      white-space: nowrap;
-      color: rgba(255,255,255,0.3);
-      font-size: 15px;
-      min-width: 200px;
-      /* piilotetaan nyt */
-      display: none;
-    }
+    /* Ostoskori popup, puolet leveämpi ja korkeampi */
 
-    .footer-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      width: max-content;
-      user-select: none;
-      /* sijoitetaan footerin alareunaan keskelle */
-      position: fixed;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,0.3);
-      font-size: 15px;
-      flex-direction: row;
-      gap: 3rem;
-    }
-
-    button.footer-button {
-      font-family: 'Eurostile', Arial, sans-serif;
-      font-weight: normal;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: rgba(255, 255, 255, 0.7);
-      background: none;
-      border: none;
-      padding: 4px 8px;
-      cursor: pointer;
-      user-select: text;
-      transition: color 0.2s;
-      white-space: nowrap;
-      text-align: center;
-      font-size: 13px;
-    }
-
-    button.footer-button:hover {
-      color: #a3c1ff;
-    }
-
-    /* Ostoskori popup */
     #cart-popup {
       position: fixed;
       top: 50px;
@@ -316,11 +276,12 @@
       color: rgba(255, 255, 255, 0.15);
       display: none;
       flex-direction: column;
-      padding: 1rem 1.2rem;
+      padding: 1.2rem 1.5rem;
       box-sizing: border-box;
       z-index: 1001;
       user-select: none;
-      font-size: 16px; /* fonttia isommaks */
+      font-size: 18px;
+      font-family: 'Eurostile', Arial, sans-serif;
     }
 
     #cart-popup-header {
@@ -328,7 +289,7 @@
       justify-content: space-between;
       align-items: center;
       color: white;
-      font-size: 14px;
+      font-size: 18px;
       font-weight: bold;
       text-transform: uppercase;
       user-select: none;
@@ -336,7 +297,7 @@
 
     #cart-popup-close {
       cursor: pointer;
-      font-size: 22px;
+      font-size: 28px;
       user-select: none;
       background: none;
       border: none;
@@ -356,15 +317,17 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 18px;
+      font-size: 22px;
       color: rgba(255, 255, 255, 0.1);
       text-align: center;
       user-select: none;
+      font-family: 'Eurostile', Arial, sans-serif;
     }
 
     #cart-popup-footer {
       margin-top: auto;
       user-select: none;
+      font-family: 'Eurostile', Arial, sans-serif;
     }
 
     #cart-popup-footer-text {
@@ -372,15 +335,17 @@
       justify-content: space-between;
       align-items: center;
       color: rgba(255,255,255,0.15);
-      font-size: 22px;
-      margin-bottom: 0.4rem;
+      font-size: 28px;
+      margin-bottom: 0.5rem;
       font-weight: 600;
       user-select: none;
+      font-family: 'Eurostile', Arial, sans-serif;
     }
 
     #cart-popup-footer-text span:last-child {
       color: white;
       font-weight: 700;
+      font-family: 'Eurostile', Arial, sans-serif;
     }
 
     #show-cart-btn {
@@ -388,10 +353,10 @@
       background-color: #1e2228;
       color: rgba(255,255,255,0.15);
       border: none;
-      padding: 0.9rem 0;
+      padding: 1rem 0;
       font-family: 'Eurostile', Arial, sans-serif;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 18px;
       text-transform: uppercase;
       cursor: pointer;
       user-select: none;
@@ -418,10 +383,28 @@
   <div class="bottom-line"></div>
 
   <div class="footer-container">
+    <div class="left-section">
+      <div class="payment-group">
+        <button class="footer-button" onclick="window.location.href='toimitus.html'">Toimitus- ja maksuehdot</button>
+        <button class="footer-button" onclick="window.location.href='tietosuoja.html'">Tietosuojaseloste</button>
+      </div>
 
-    <div class="payment-group">
-      <button class="footer-button" onclick="window.location.href='toimitus.html'">Toimitus- ja maksuehdot</button>
-      <button class="footer-button" onclick="window.location.href='tietosuoja.html'">Tietosuojaseloste</button>
+      <div class="language-select" tabindex="0" role="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Valitse kieli">
+        <img src="flag-fi.png" alt="Suomi" />
+        <span>FI</span>
+        <span class="dropdown-arrow"></span>
+
+        <div class="language-box" role="listbox" aria-label="Kielet">
+          <div role="option" tabindex="0"><img src="flag-fi.png" alt="Suomi" /> FI</div>
+          <div role="option" tabindex="0"><img src="flag-en.png" alt="Englanti" /> EN</div>
+          <div role="option" tabindex="0"><img src="flag-se.png" alt="Ruotsi" /> SE</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-links" aria-label="Footer linkit">
+      <button onclick="window.location.href='toimitus.html'">Toimitus- ja maksuehdot</button>
+      <button onclick="window.location.href='tietosuoja.html'">Tietosuojaseloste</button>
     </div>
 
     <div class="somet-wrapper" title="Sosiaalinen media">
@@ -429,11 +412,10 @@
         <img src="tiktok-icon.png" alt="TikTok" />
       </button>
     </div>
-
   </div>
 
   <!-- Ostoskori popup -->
-  <div id="cart-popup" aria-live="polite" role="dialog" aria-modal="true">
+  <div id="cart-popup" aria-live="polite" role="dialog" aria-modal="true" aria-labelledby="cart-popup-header">
     <div id="cart-popup-header">
       <div>OSTOSKORI</div>
       <button id="cart-popup-close" aria-label="Sulje ostoskori popup">×</button>
@@ -451,29 +433,44 @@
   </div>
 
 <script>
+  // Ostoskori avaa/sulje
   const cartBox = document.getElementById('cart-box');
   const cartPopup = document.getElementById('cart-popup');
   const cartPopupClose = document.getElementById('cart-popup-close');
 
   cartBox.addEventListener('click', () => {
-    if (cartPopup.style.display === 'flex') {
-      cartPopup.style.display = 'none';
-    } else {
-      cartPopup.style.display = 'flex';
-    }
+    cartPopup.style.display = (cartPopup.style.display === 'flex') ? 'none' : 'flex';
   });
 
   cartPopupClose.addEventListener('click', () => {
     cartPopup.style.display = 'none';
   });
 
-  // TikTok hover effect color - stays same as #4db5da
+  // TikTok hover effect ilman viivettä, väri #4db5da
   const tiktokBtn = document.querySelector('.tiktok-btn');
   tiktokBtn.addEventListener('mouseenter', () => {
-    tiktokBtn.querySelector('img').style.filter = 'invert(47%) sepia(46%) saturate(3547%) hue-rotate(182deg) brightness(1)';
+    tiktokBtn.querySelector('img').style.filter = 'invert(43%) sepia(53%) saturate(2200%) hue-rotate(182deg) brightness(1)';
   });
   tiktokBtn.addEventListener('mouseleave', () => {
     tiktokBtn.querySelector('img').style.filter = 'invert(0%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100)';
+  });
+
+  // Kielivalikon dropdown
+  const langSelect = document.querySelector('.language-select');
+  const langBox = document.querySelector('.language-box');
+
+  langSelect.addEventListener('click', () => {
+    const expanded = langSelect.getAttribute('aria-expanded') === 'true';
+    langSelect.setAttribute('aria-expanded', !expanded);
+    langBox.style.display = expanded ? 'none' : 'flex';
+  });
+
+  // Sulje kielivalikko kun klikkaa muualla
+  document.addEventListener('click', (e) => {
+    if (!langSelect.contains(e.target)) {
+      langSelect.setAttribute('aria-expanded', false);
+      langBox.style.display = 'none';
+    }
   });
 </script>
 
