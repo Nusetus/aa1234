@@ -28,7 +28,7 @@
       position: relative;
     }
 
-    /* Ostoskori laatikko */
+    /* Ostoskori laatikko yläkulmassa */
     #cart-box {
       position: fixed;
       top: 10px;
@@ -37,9 +37,9 @@
       color: #fff;
       font-family: 'Eurostile', Arial, sans-serif;
       font-weight: bold;
-      font-size: 22px; /* kasvatettu fonttia */
-      width: 67.5px;  /* 45px * 1.5 */
-      height: 45px;   /* 30px * 1.5 */
+      font-size: 14px;
+      width: 45px; /* leveämpi */
+      height: 30px;
       border-radius: 5px;
       display: flex;
       justify-content: center;
@@ -186,8 +186,6 @@
       gap: 0.3rem;
       min-width: 180px;
       user-select: none;
-      /* keskitetään */
-      align-items: center;
     }
 
     button.middle-button {
@@ -216,8 +214,6 @@
       cursor: pointer;
       gap: 8px;
       margin-left: 2cm;
-      /* siirretään oikeaan laitaan */
-      margin-left: auto;
     }
 
     .somet-text {
@@ -261,8 +257,6 @@
       color: rgba(255,255,255,0.3);
       font-size: 15px;
       min-width: 200px;
-      /* piilotetaan nyt */
-      display: none;
     }
 
     .footer-buttons {
@@ -270,16 +264,6 @@
       flex-direction: column;
       gap: 0.5rem;
       width: max-content;
-      user-select: none;
-      /* sijoitetaan footerin alareunaan keskelle */
-      position: fixed;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,0.3);
-      font-size: 15px;
-      flex-direction: row;
-      gap: 3rem;
     }
 
     button.footer-button {
@@ -290,12 +274,12 @@
       color: rgba(255, 255, 255, 0.7);
       background: none;
       border: none;
-      padding: 4px 8px;
+      padding: 4px 0;
       cursor: pointer;
       user-select: text;
       transition: color 0.2s;
       white-space: nowrap;
-      text-align: center;
+      text-align: left;
       font-size: 13px;
     }
 
@@ -308,19 +292,18 @@
       position: fixed;
       top: 50px;
       right: 10px;
-      width: 12cm; /* 8cm * 1.5 */
-      height: 7.5cm; /* 5cm * 1.5 */
+      width: 8cm;
+      height: 5cm;
       background-color: #444a56;
       border-radius: 6px;
       box-shadow: 0 0 15px rgba(0,0,0,0.5);
       color: rgba(255, 255, 255, 0.15);
       display: none;
       flex-direction: column;
-      padding: 1rem 1.2rem;
+      padding: 0.7rem 1rem;
       box-sizing: border-box;
       z-index: 1001;
       user-select: none;
-      font-size: 16px; /* fonttia isommaks */
     }
 
     #cart-popup-header {
@@ -328,15 +311,14 @@
       justify-content: space-between;
       align-items: center;
       color: white;
-      font-size: 14px;
+      font-size: 11px;
       font-weight: bold;
       text-transform: uppercase;
-      user-select: none;
     }
 
     #cart-popup-close {
       cursor: pointer;
-      font-size: 22px;
+      font-size: 16px;
       user-select: none;
       background: none;
       border: none;
@@ -356,7 +338,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 18px;
+      font-size: 14px;
       color: rgba(255, 255, 255, 0.1);
       text-align: center;
       user-select: none;
@@ -364,7 +346,6 @@
 
     #cart-popup-footer {
       margin-top: auto;
-      user-select: none;
     }
 
     #cart-popup-footer-text {
@@ -372,10 +353,9 @@
       justify-content: space-between;
       align-items: center;
       color: rgba(255,255,255,0.15);
-      font-size: 22px;
-      margin-bottom: 0.4rem;
+      font-size: 18px;
+      margin-bottom: 0.2rem;
       font-weight: 600;
-      user-select: none;
     }
 
     #cart-popup-footer-text span:last-child {
@@ -388,10 +368,10 @@
       background-color: #1e2228;
       color: rgba(255,255,255,0.15);
       border: none;
-      padding: 0.9rem 0;
+      padding: 0.6rem 0;
       font-family: 'Eurostile', Arial, sans-serif;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 11px;
       text-transform: uppercase;
       cursor: pointer;
       user-select: none;
@@ -403,44 +383,82 @@
       color: #4db5da;
     }
 
-    ::selection {
-      background: #4db5da;
-      color: white;
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+    }
+
+    html {
+      scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+      scrollbar-width: thin;
+    }
+
+    @media (max-width: 600px) {
+      .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 0.5cm 0.5cm 3cm 0.5cm;
+        gap: 0.5rem;
+      }
+
+      .payment-title,
+      button.footer-button,
+      .copyright,
+      button.middle-button {
+        font-size: 13px;
+      }
+
+      .payment-logos {
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .payment-logos img {
+        height: 24px;
+      }
+
+      .middle-buttons-container {
+        flex-direction: column;
+        min-width: auto;
+        gap: 0.5rem;
+      }
+
+      .middle-buttons {
+        min-width: auto;
+        text-align: left;
+        flex-direction: row;
+        gap: 1rem;
+      }
+
+      .somet-wrapper {
+        flex-direction: column;
+        gap: 0.5rem;
+        min-width: auto;
+        margin-left: 0;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div id="cart-box" title="Ostoskori">
-    🛒
-  </div>
-
-  <div class="bottom-line"></div>
-
-  <div class="footer-container">
-
-    <div class="payment-group">
-      <button class="footer-button" onclick="window.location.href='toimitus.html'">Toimitus- ja maksuehdot</button>
-      <button class="footer-button" onclick="window.location.href='tietosuoja.html'">Tietosuojaseloste</button>
-    </div>
-
-    <div class="somet-wrapper" title="Sosiaalinen media">
-      <button class="tiktok-btn" aria-label="TikTok">
-        <img src="tiktok-icon.png" alt="TikTok" />
-      </button>
-    </div>
-
-  </div>
+  <!-- Ostoskori laatikko -->
+  <div id="cart-box" aria-label="Ostoskorin sisältö" role="button" tabindex="0">0</div>
 
   <!-- Ostoskori popup -->
-  <div id="cart-popup" aria-live="polite" role="dialog" aria-modal="true">
+  <div id="cart-popup" role="region" aria-label="Ostoskorin tiedot">
     <div id="cart-popup-header">
-      <div>OSTOSKORI</div>
-      <button id="cart-popup-close" aria-label="Sulje ostoskori popup">×</button>
+      <span>OSTOSKORI</span>
+      <button id="cart-popup-close" aria-label="Sulje ostoskori">&times;</button>
     </div>
-    <div id="cart-popup-content">
-      Ostoskorisi on tyhjä.
-    </div>
+    <div id="cart-popup-content">Ostoskorisi on tyhjä.</div>
     <div id="cart-popup-footer">
       <div id="cart-popup-footer-text">
         <span>Loppusumma</span>
@@ -450,32 +468,75 @@
     </div>
   </div>
 
-<script>
-  const cartBox = document.getElementById('cart-box');
-  const cartPopup = document.getElementById('cart-popup');
-  const cartPopupClose = document.getElementById('cart-popup-close');
+  <div class="bottom-line"></div>
 
-  cartBox.addEventListener('click', () => {
-    if (cartPopup.style.display === 'flex') {
+  <div class="footer-container">
+    <div class="payment-group">
+      <div class="payment-title">Maksutavat</div>
+      <div class="payment-logos">
+        <img src="applepay.svg" alt="Apple Pay" />
+        <img src="mc.svg" alt="Mastercard" />
+        <img src="mobilepay.svg" alt="MobilePay" />
+        <img src="visa.svg" alt="Visa" />
+      </div>
+      <div class="language-select" tabindex="0" role="button" onclick="toggleLangBox()" aria-label="Valitse kieli">
+        <div class="language-box" id="langBox" style="display:none;">
+          <img src="Suomenlippu.svg" alt="Suomenlippu" />
+          <span>Suomi</span>
+        </div>
+        <img src="Suomenlippu.svg" alt="Suomenlippu" />
+        <span>FI</span>
+        <i class="dropdown-arrow"></i>
+      </div>
+    </div>
+
+    <div class="middle-buttons-container">
+      <div class="middle-buttons">
+        <button class="middle-button" onclick="window.location.href='#'">Toimitus- ja maksuehdot</button>
+        <button class="middle-button" onclick="window.location.href='#'">Tietosuojaseloste</button>
+      </div>
+
+      <div class="somet-wrapper">
+        <div class="somet-text">Somet</div>
+        <button class="tiktok-btn" aria-label="Tiktok some-link" onclick="window.open('https://www.tiktok.com', '_blank')">
+          <img src="Tiktok.png" alt="Tiktok" />
+        </button>
+      </div>
+    </div>
+
+    <div class="copyright-group">
+      <button class="footer-button" onclick="window.location.href='mailto:contact@gmail.com'">contact@gmail.com</button>
+      <div class="copyright">© 2025 Verkkokauppa</div>
+    </div>
+  </div>
+
+  <script>
+    const cartBox = document.getElementById('cart-box');
+    const cartPopup = document.getElementById('cart-popup');
+    const cartPopupClose = document.getElementById('cart-popup-close');
+
+    cartBox.addEventListener('click', () => {
+      if (cartPopup.style.display === 'flex') {
+        cartPopup.style.display = 'none';
+      } else {
+        cartPopup.style.display = 'flex';
+      }
+    });
+
+    cartPopupClose.addEventListener('click', () => {
       cartPopup.style.display = 'none';
-    } else {
-      cartPopup.style.display = 'flex';
+    });
+
+    // Kielivalikon dropdown (vain demo, ei muuta toimintoa)
+    function toggleLangBox() {
+      const langBox = document.getElementById('langBox');
+      if (langBox.style.display === 'flex') {
+        langBox.style.display = 'none';
+      } else {
+        langBox.style.display = 'flex';
+      }
     }
-  });
-
-  cartPopupClose.addEventListener('click', () => {
-    cartPopup.style.display = 'none';
-  });
-
-  // TikTok hover effect color - stays same as #4db5da
-  const tiktokBtn = document.querySelector('.tiktok-btn');
-  tiktokBtn.addEventListener('mouseenter', () => {
-    tiktokBtn.querySelector('img').style.filter = 'invert(47%) sepia(46%) saturate(3547%) hue-rotate(182deg) brightness(1)';
-  });
-  tiktokBtn.addEventListener('mouseleave', () => {
-    tiktokBtn.querySelector('img').style.filter = 'invert(0%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100)';
-  });
-</script>
+  </script>
 
 </body>
 </html>
