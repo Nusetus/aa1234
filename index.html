@@ -33,12 +33,12 @@
       position: fixed;
       top: 10px;
       right: 10px;
-      background-color: #4db5da; /* uusi väri */
-      color: #fff; /* valkoinen teksti */
+      background-color: #4db5da; /* pyytämäsi väri */
+      color: #fff; /* valkoinen numero */
       font-family: 'Eurostile', Arial, sans-serif;
       font-weight: bold;
       font-size: 14px;
-      width: 45px; /* 30px -> 45px */
+      width: 45px; /* puolet leveämpi */
       height: 30px;
       border-radius: 5px;
       display: flex;
@@ -46,129 +46,105 @@
       align-items: center;
       cursor: pointer;
       user-select: none;
-      z-index: 1100;
+      z-index: 1000;
       box-shadow: 0 0 5px rgba(0,0,0,0.3);
       transition: background-color 0.3s;
     }
     #cart-box:hover {
-      background-color: #3a91b1;
+      background-color: #4db5da; /* sama väri hoverissä */
     }
 
-    /* Ostoskori sisältöboxi */
-    #cart-content-box {
+    /* Ostoskori boxi */
+    #cart-popup {
       position: fixed;
-      top: 45px; /* vähän alle ostoskorin alareuna */
+      top: 45px; /* heti ostoskorin napin alapuolella */
       right: 10px;
       width: 8cm;
       height: 5cm;
-      background-color: #444a56; /* sama kuin kielivalikon dropdown tausta */
+      background-color: #444a56; /* sama kuin kielivalikon tausta */
       border-radius: 6px;
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
       display: none;
       flex-direction: column;
-      padding: 0.6rem 1rem 1rem 1rem;
-      color: rgba(255,255,255,0.6);
-      z-index: 1099;
-      user-select: none;
+      color: rgba(255, 255, 255, 0.3);
       font-family: 'Eurostile', Arial, sans-serif;
+      user-select: none;
+      z-index: 1001;
+      padding: 10px;
+      box-sizing: border-box;
     }
 
-    /* Boxin yläosa tekstit ja sulje-ruksi */
-    #cart-header {
+    #cart-popup-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.8rem;
-    }
-
-    #cart-header h2 {
-      font-size: 0.8rem; /* pieni fontti */
-      font-weight: normal;
-      color: #fff;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin: 0;
       user-select: none;
     }
 
-    #cart-close-btn {
-      font-size: 1.3rem;
-      font-weight: normal;
-      color: #fff;
+    #cart-popup-close {
       cursor: pointer;
-      user-select: none;
-      padding: 0 5px;
+      font-weight: normal;
+      font-size: 18px;
       line-height: 1;
-      transition: color 0.2s ease;
+      color: white;
+      user-select: none;
     }
-    #cart-close-btn:hover {
+    #cart-popup-close:hover {
       color: #4db5da;
     }
 
-    /* Keskellä tyhjä teksti */
-    #cart-empty-text {
+    #cart-popup-empty {
       flex-grow: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: rgba(255,255,255,0.1);
-      font-size: 1.1rem;
-      text-align: center;
+      color: rgba(255, 255, 255, 0.05);
+      font-size: 18px;
       user-select: none;
     }
 
-    /* Loppusumma ja nappi alaosassa */
-    #cart-footer {
+    #cart-popup-footer {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
-      margin-top: 0.8rem;
+      gap: 6px;
     }
 
-    #cart-total-row {
+    #cart-total {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: rgba(255,255,255,0.3);
-      font-size: 1rem;
-      user-select: none;
-    }
-
-    #cart-total-row .total-label {
+      color: rgba(255, 255, 255, 0.15);
+      font-size: 16px;
       font-weight: normal;
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.3);
       user-select: none;
     }
-
-    #cart-total-row .total-amount {
-      font-weight: normal;
-      font-size: 1.1rem;
-      color: #fff;
-      user-select: none;
-      min-width: 5cm;
-      text-align: right;
+    #cart-total .amount {
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
     }
 
-    /* Iso nappi */
     #show-cart-btn {
-      width: 100%;
-      background-color: #1e2228; /* sivun tausta */
+      background-color: #1e2228; /* sivuston tausta */
       border: none;
+      padding: 10px 0;
       border-radius: 5px;
-      padding: 0.6rem 0;
-      color: rgba(255,255,255,0.3);
       font-family: 'Eurostile', Arial, sans-serif;
-      font-size: 0.8rem; /* sama kuin "OSTOSKORI" */
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      font-weight: bold;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.15);
       cursor: pointer;
       user-select: none;
+      text-transform: uppercase;
       transition: background-color 0.3s, color 0.3s;
     }
     #show-cart-btn:hover {
-      background-color: #2a2f38;
-      color: rgba(255,255,255,0.6);
+      background-color: #2a2f39;
+      color: rgba(255, 255, 255, 0.3);
     }
 
     .bottom-line {
@@ -357,13 +333,14 @@
       width: 32px;
       height: auto;
       display: block;
-      filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100); /* valkoinen */
+      filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100);
+      /* valkoinen */
       transition: filter 0.3s;
     }
 
     .tiktok-btn:hover img {
-      filter: none;
-      filter: drop-shadow(0 0 4px #4db5da);
+      filter: invert(32%) sepia(77%) saturate(430%) hue-rotate(180deg) brightness(90%);
+      /* pyytämäsi sininen hover */
     }
 
     .copyright-group {
@@ -473,23 +450,21 @@
 <body>
 
   <!-- Ostoskori laatikko -->
-  <div id="cart-box" aria-label="Ostoskorin sisältö" role="button" tabindex="0">0</div>
+  <div id="cart-box" aria-label="Ostoskorin sisältö" role="button" tabindex="0" onclick="toggleCartPopup()">0</div>
 
-  <!-- Ostoskori sisältöboxi -->
-  <div id="cart-content-box" role="region" aria-label="Ostoskorin sisältö">
-    <div id="cart-header">
-      <h2>OSTOSKORI</h2>
-      <div id="cart-close-btn" role="button" aria-label="Sulje ostoskori" tabindex="0">&times;</div>
+  <!-- Ostoskori popup -->
+  <div id="cart-popup" role="region" aria-label="Ostoskori">
+    <div id="cart-popup-header">
+      <div>OSTOSKORI</div>
+      <div id="cart-popup-close" role="button" tabindex="0" aria-label="Sulje ostoskori" onclick="toggleCartPopup()">×</div>
     </div>
-
-    <div id="cart-empty-text">Ostoskorisi on tyhjä.</div>
-
-    <div id="cart-footer">
-      <div id="cart-total-row">
-        <div class="total-label">Loppusumma</div>
-        <div class="total-amount">0,00 €</div>
+    <div id="cart-popup-empty">Ostoskorisi on tyhjä.</div>
+    <div id="cart-popup-footer">
+      <div id="cart-total">
+        <div>Loppusumma</div>
+        <div class="amount">0,00 €</div>
       </div>
-      <button id="show-cart-btn" aria-label="Näytä ostoskori">NÄYTÄ OSTOSKORI</button>
+      <button id="show-cart-btn" onclick="alert('Näytetään ostoskori (toiminto vielä toteuttamatta)')">NÄYTÄ OSTOSKORI</button>
     </div>
   </div>
 
@@ -508,83 +483,52 @@
         <div class="language-box" id="langBox" style="display:none;">
           <img src="Suomenlippu.svg" alt="Suomenlippu" />
           <span>Suomi</span>
-          <img src="Englanninlippu.svg" alt="Englannin lippu" />
-          <span>English</span>
         </div>
-        <img src="Suomenlippu.svg" alt="Suomen lippu" />
+        <img src="Suomenlippu.svg" alt="Suomenlippu" />
         <span>FI</span>
-        <div class="dropdown-arrow"></div>
+        <i class="dropdown-arrow"></i>
       </div>
     </div>
 
     <div class="middle-buttons-container">
       <div class="middle-buttons">
-        <button class="middle-button">Tietoa yrityksestä</button>
-        <button class="middle-button">Tietosuojaseloste</button>
+        <button class="middle-button" onclick="window.location.href='#'">Toimitus- ja maksuehdot</button>
+        <button class="middle-button" onclick="window.location.href='#'">Tietosuojaseloste</button>
       </div>
-      <div class="middle-buttons">
-        <button class="middle-button">Sivukartta</button>
-        <button class="middle-button">Rekisteriseloste</button>
-      </div>
-    </div>
 
-    <div class="somet-wrapper" aria-label="Sosiaalinen media">
-      <div class="somet-text">Seuraa meitä</div>
-      <button class="tiktok-btn" aria-label="Tiktok">
-        <img src="Tiktok.png" alt="Tiktok" />
-      </button>
+      <div class="somet-wrapper">
+        <div class="somet-text">Somet</div>
+        <button class="tiktok-btn" aria-label="Tiktok some-link" onclick="window.open('https://www.tiktok.com', '_blank')">
+          <img src="Tiktok.png" alt="Tiktok" />
+        </button>
+      </div>
     </div>
 
     <div class="copyright-group">
-      <div class="copyright">© 2025 Yritys Oy</div>
-      <div class="footer-buttons">
-        <button class="footer-button" aria-label="Tietosuojaseloste">Tietosuojaseloste</button>
-        <button class="footer-button" aria-label="Käyttöehdot">Käyttöehdot</button>
-      </div>
+      &copy; 2025 Yritys Oy
     </div>
   </div>
 
-  <script>
-    // Toggle kielivalikko
-    function toggleLangBox() {
-      const langBox = document.getElementById('langBox');
-      langBox.style.display = (langBox.style.display === 'flex') ? 'none' : 'flex';
+<script>
+  function toggleCartPopup() {
+    const cartPopup = document.getElementById('cart-popup');
+    if (cartPopup.style.display === 'flex') {
+      cartPopup.style.display = 'none';
+    } else {
+      cartPopup.style.display = 'flex';
+      cartPopup.style.flexDirection = 'column';
     }
+  }
 
-    // Ostoskori napin ja boxin logiikka
-    const cartBox = document.getElementById('cart-box');
-    const cartContentBox = document.getElementById('cart-content-box');
-    const cartCloseBtn = document.getElementById('cart-close-btn');
+  function toggleLangBox() {
+    const langBox = document.getElementById('langBox');
+    if (langBox.style.display === 'flex') {
+      langBox.style.display = 'none';
+    } else {
+      langBox.style.display = 'flex';
+    }
+  }
+</script>
 
-    cartBox.addEventListener('click', () => {
-      if (cartContentBox.style.display === 'flex') {
-        cartContentBox.style.display = 'none';
-      } else {
-        cartContentBox.style.display = 'flex';
-        cartContentBox.style.flexDirection = 'column';
-      }
-    });
-
-    cartCloseBtn.addEventListener('click', () => {
-      cartContentBox.style.display = 'none';
-    });
-
-    // Mahdollinen myös sulku näppäimellä
-    cartCloseBtn.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        cartContentBox.style.display = 'none';
-      }
-    });
-
-    // Ostoskori napin näppäimistökäyttö
-    cartBox.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        cartBox.click();
-      }
-    });
-
-  </script>
 </body>
 </html>
