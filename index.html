@@ -33,13 +33,13 @@
       position: fixed;
       top: 10px;
       right: 10px;
-      background-color: #4db5da;
-      color: #fff;
+      background-color: #4db5da; /* muutettu väri */
+      color: #fff; /* valkoinen teksti */
       font-family: 'Eurostile', Arial, sans-serif;
       font-weight: bold;
-      font-size: 14px;
-      width: 45px; /* leveämpi */
-      height: 30px;
+      font-size: 21px; /* iso fontti */
+      width: 45px; /* 1.5x leveämpi */
+      height: 45px; /* 1.5x korkeampi */
       border-radius: 5px;
       display: flex;
       justify-content: center;
@@ -51,7 +51,7 @@
       transition: background-color 0.3s;
     }
     #cart-box:hover {
-      background-color: #4db5da;
+      background-color: #3a93b4;
     }
 
     .bottom-line {
@@ -81,6 +81,8 @@
       text-align: left;
       min-width: 200px;
       position: relative;
+      /* Siirto ylöspäin */
+      margin-bottom: 1rem;
     }
 
     .payment-title {
@@ -109,12 +111,14 @@
       gap: 6px;
       cursor: pointer;
       color: white;
-      font-size: 13px;
+      font-size: 13px; /* pienennetty */
       user-select: none;
       font-weight: normal;
       position: relative;
       width: max-content;
       transition: color 0.2s;
+      /* Siirto ylöspäin */
+      margin-bottom: 1rem;
     }
 
     .language-select:hover {
@@ -122,7 +126,7 @@
     }
 
     .language-select img {
-      height: 18px;
+      height: 18px; /* pienennetty lippu */
       width: auto;
       border-radius: 2px;
       display: block;
@@ -143,11 +147,11 @@
     }
 
     .language-box {
-      display: none;
+      display: none; /* Aluksi piilossa */
       position: absolute;
       bottom: 30px;
       left: 0;
-      background-color: #444a56;
+      background-color: #444a56; /* harmaa tausta */
       padding: 6px 12px;
       border-radius: 4px;
       font-size: 14px;
@@ -170,6 +174,7 @@
       border-radius: 2px;
     }
 
+    /* Keskitetään toimitus- ja tietosuoja-napit alareunaan */
     .middle-buttons-container {
       display: flex;
       align-items: flex-end;
@@ -177,6 +182,10 @@
       min-width: 360px;
       user-select: none;
       color: rgba(255,255,255,0.3);
+
+      justify-content: center; /* keskitys */
+      width: 100%; /* koko leveys */
+      order: 2;
     }
 
     .middle-buttons {
@@ -186,6 +195,7 @@
       gap: 0.3rem;
       min-width: 180px;
       user-select: none;
+      text-align: center;
     }
 
     button.middle-button {
@@ -205,6 +215,7 @@
       color: #a3c1ff;
     }
 
+    /* Siirrä somet nappia 3cm oikealle */
     .somet-wrapper {
       display: flex;
       flex-direction: column;
@@ -213,7 +224,8 @@
       user-select: none;
       cursor: pointer;
       gap: 8px;
-      margin-left: 2cm;
+      margin-left: 3cm; /* siirretty 3cm oikealle */
+      order: 3;
     }
 
     .somet-text {
@@ -233,18 +245,20 @@
       cursor: pointer;
       outline: none;
       user-select: none;
+      transition-delay: 0s !important; /* poista hover viive */
     }
 
     .tiktok-btn img {
       width: 32px;
       height: auto;
       display: block;
-      filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100);
-      transition: filter 0.3s;
+      filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100); /* valkoinen */
+      transition: filter 0.3s ease 0s !important; /* poista viive */
     }
 
     .tiktok-btn:hover img {
-      filter: invert(29%) sepia(60%) saturate(1572%) hue-rotate(184deg) brightness(1);
+      filter: invert(45%) sepia(84%) saturate(4046%) hue-rotate(210deg) brightness(1); /* vaaleansininen hover */
+      transition-delay: 0s !important;
     }
 
     .copyright-group {
@@ -257,6 +271,8 @@
       color: rgba(255,255,255,0.3);
       font-size: 15px;
       min-width: 200px;
+      order: 1;
+      margin-bottom: 1rem;
     }
 
     .footer-buttons {
@@ -287,96 +303,103 @@
       color: #a3c1ff;
     }
 
-    /* Ostoskori popup */
-    #cart-popup {
+    /* Ostoskori boxin kasvatus (puolet isompi) */
+    #cart-dropdown {
       position: fixed;
-      top: 50px;
+      top: 55px; /* suoraan ostoskorin napin alle */
       right: 10px;
-      width: 8cm;
-      height: 5cm;
-      background-color: #444a56;
+      width: 12cm; /* 8cm * 1.5 */
+      height: 7.5cm; /* 5cm * 1.5 */
+      background-color: #444a56; /* sama kuin kielivalikon tausta */
       border-radius: 6px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-      color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 12px rgba(0,0,0,0.6);
+      color: rgba(255, 255, 255, 0.3);
+      font-family: 'Eurostile', Arial, sans-serif;
       display: none;
       flex-direction: column;
-      padding: 0.7rem 1rem;
+      padding: 1rem;
       box-sizing: border-box;
-      z-index: 1001;
       user-select: none;
+      z-index: 1500;
     }
 
-    #cart-popup-header {
+    #cart-dropdown-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-size: 14px;
       color: white;
-      font-size: 11px;
       font-weight: bold;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
+      user-select: none;
     }
 
-    #cart-popup-close {
-      cursor: pointer;
-      font-size: 16px;
-      user-select: none;
+    #cart-dropdown-header button {
       background: none;
       border: none;
       color: white;
-      font-weight: bold;
-      line-height: 1;
+      font-size: 20px;
+      font-weight: normal;
+      cursor: pointer;
       padding: 0;
-      transition: color 0.2s;
+      line-height: 1;
+      user-select: none;
     }
 
-    #cart-popup-close:hover {
-      color: #ff6666;
-    }
-
-    #cart-popup-content {
+    #cart-dropdown-body {
       flex-grow: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.1);
+      font-size: 18px;
+      color: rgba(255,255,255,0.08);
       text-align: center;
+      user-select: none;
+      margin-top: 0.8rem;
+    }
+
+    #cart-dropdown-footer {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
       user-select: none;
     }
 
-    #cart-popup-footer {
-      margin-top: auto;
+    #total-label {
+      font-size: 20px;
+      color: rgba(255,255,255,0.2);
+      user-select: none;
+      display: inline-block;
     }
 
-    #cart-popup-footer-text {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: rgba(255,255,255,0.15);
-      font-size: 18px;
-      margin-bottom: 0.2rem;
-      font-weight: 600;
-    }
-
-    #cart-popup-footer-text span:last-child {
+    #total-amount {
+      font-size: 20px;
+      font-weight: bold;
       color: white;
-      font-weight: 700;
+      user-select: none;
+      float: right;
+      width: 5cm;
+      text-align: right;
     }
 
     #show-cart-btn {
-      width: 100%;
-      background-color: #1e2228;
-      color: rgba(255,255,255,0.15);
-      border: none;
-      padding: 0.6rem 0;
+      background-color: #1e2228; /* taustaväri sama kuin sivu */
+      color: rgba(255,255,255,0.3);
       font-family: 'Eurostile', Arial, sans-serif;
+      font-size: 14px;
       font-weight: bold;
-      font-size: 11px;
       text-transform: uppercase;
+      letter-spacing: 1.5px;
+      border: none;
+      padding: 0.7rem 1rem;
+      border-radius: 4px;
       cursor: pointer;
       user-select: none;
-      border-radius: 4px;
-      transition: color 0.3s;
+      transition: color 0.2s;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     #show-cart-btn:hover {
@@ -431,17 +454,7 @@
         gap: 0.5rem;
       }
 
-      .middle-buttons {
-        min-width: auto;
-        text-align: left;
-        flex-direction: row;
-        gap: 1rem;
-      }
-
       .somet-wrapper {
-        flex-direction: column;
-        gap: 0.5rem;
-        min-width: auto;
         margin-left: 0;
       }
     }
@@ -449,93 +462,69 @@
 </head>
 <body>
 
-  <!-- Ostoskori laatikko -->
-  <div id="cart-box" aria-label="Ostoskorin sisältö" role="button" tabindex="0">0</div>
+  <div id="cart-box" aria-label="Ostoskori" role="button" tabindex="0">🛒</div>
 
-  <!-- Ostoskori popup -->
-  <div id="cart-popup" role="region" aria-label="Ostoskorin tiedot">
-    <div id="cart-popup-header">
-      <span>OSTOSKORI</span>
-      <button id="cart-popup-close" aria-label="Sulje ostoskori">&times;</button>
+  <div id="cart-dropdown" role="dialog" aria-modal="true" aria-labelledby="cart-dropdown-header">
+    <div id="cart-dropdown-header">
+      OSTOSKORI
+      <button id="close-cart" aria-label="Sulje ostoskori">×</button>
     </div>
-    <div id="cart-popup-content">Ostoskorisi on tyhjä.</div>
-    <div id="cart-popup-footer">
-      <div id="cart-popup-footer-text">
-        <span>Loppusumma</span>
-        <span>0,00 €</span>
+    <div id="cart-dropdown-body">
+      Ostoskorisi on tyhjä.
+    </div>
+    <div id="cart-dropdown-footer">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+        <span id="total-label">Loppusumma</span>
+        <span id="total-amount">0,00 €</span>
       </div>
-      <button id="show-cart-btn">NÄYTÄ OSTOSKORI</button>
+      <button id="show-cart-btn" aria-label="Näytä ostoskori">NÄYTÄ OSTOSKORI</button>
     </div>
   </div>
 
   <div class="bottom-line"></div>
 
-  <div class="footer-container">
-    <div class="payment-group">
-      <div class="payment-title">Maksutavat</div>
-      <div class="payment-logos">
-        <img src="applepay.svg" alt="Apple Pay" />
-        <img src="mc.svg" alt="Mastercard" />
-        <img src="mobilepay.svg" alt="MobilePay" />
-        <img src="visa.svg" alt="Visa" />
-      </div>
-      <div class="language-select" tabindex="0" role="button" onclick="toggleLangBox()" aria-label="Valitse kieli">
-        <div class="language-box" id="langBox" style="display:none;">
-          <img src="Suomenlippu.svg" alt="Suomenlippu" />
-          <span>Suomi</span>
-        </div>
-        <img src="Suomenlippu.svg" alt="Suomenlippu" />
-        <span>FI</span>
-        <i class="dropdown-arrow"></i>
-      </div>
-    </div>
+  <footer class="footer-container" role="contentinfo" aria-label="Sivun alatunniste">
 
     <div class="middle-buttons-container">
-      <div class="middle-buttons">
-        <button class="middle-button" onclick="window.location.href='#'">Toimitus- ja maksuehdot</button>
-        <button class="middle-button" onclick="window.location.href='#'">Tietosuojaseloste</button>
-      </div>
-
-      <div class="somet-wrapper">
-        <div class="somet-text">Somet</div>
-        <button class="tiktok-btn" aria-label="Tiktok some-link" onclick="window.open('https://www.tiktok.com', '_blank')">
-          <img src="Tiktok.png" alt="Tiktok" />
-        </button>
+      <div class="middle-buttons" role="navigation" aria-label="Toimitusehdot ja maksutavat">
+        <button class="middle-button" type="button" aria-label="Toimitusehdot">Toimitusehdot</button>
+        <button class="middle-button" type="button" aria-label="Maksuehdot">Maksuehdot</button>
+        <button class="middle-button" type="button" aria-label="Tietosuojaseloste">Tietosuojaseloste</button>
       </div>
     </div>
 
-    <div class="copyright-group">
-      <button class="footer-button" onclick="window.location.href='mailto:contact@gmail.com'">contact@gmail.com</button>
-      <div class="copyright">© 2025 Verkkokauppa</div>
+    <div class="somet-wrapper" role="navigation" aria-label="Sosiaalisen median linkit">
+      <div class="somet-text">SEURAA MEITÄ</div>
+      <button class="tiktok-btn" aria-label="TikTok">
+        <img src="tiktok-icon-white.svg" alt="TikTok" />
+      </button>
     </div>
-  </div>
+
+  </footer>
 
   <script>
+    // Ostoskori-laatikon toggle
     const cartBox = document.getElementById('cart-box');
-    const cartPopup = document.getElementById('cart-popup');
-    const cartPopupClose = document.getElementById('cart-popup-close');
+    const cartDropdown = document.getElementById('cart-dropdown');
+    const closeCartBtn = document.getElementById('close-cart');
 
     cartBox.addEventListener('click', () => {
-      if (cartPopup.style.display === 'flex') {
-        cartPopup.style.display = 'none';
+      if (cartDropdown.style.display === 'flex') {
+        cartDropdown.style.display = 'none';
       } else {
-        cartPopup.style.display = 'flex';
+        cartDropdown.style.display = 'flex';
       }
     });
 
-    cartPopupClose.addEventListener('click', () => {
-      cartPopup.style.display = 'none';
+    closeCartBtn.addEventListener('click', () => {
+      cartDropdown.style.display = 'none';
     });
 
-    // Kielivalikon dropdown (vain demo, ei muuta toimintoa)
-    function toggleLangBox() {
-      const langBox = document.getElementById('langBox');
-      if (langBox.style.display === 'flex') {
-        langBox.style.display = 'none';
-      } else {
-        langBox.style.display = 'flex';
-      }
-    }
+    // Näytä ostoskori -napin toiminnallisuus (tässä vain sulkee laatikon)
+    document.getElementById('show-cart-btn').addEventListener('click', () => {
+      alert('Näytä ostoskori -toiminto ei ole vielä toteutettu.');
+    });
+
   </script>
 
 </body>
